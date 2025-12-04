@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arda Berber Dükkanı | Profesyonel Erkek Bakımı</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        dark: {
+                            900: '#111827',
+                            800: '#1f2937',
+                            700: '#374151',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Oswald', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-100 font-body antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-dark-900/95 backdrop-blur-sm border-b border-gray-800 shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-display font-bold text-white tracking-wider uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-scissors text-gold-500"></i>
+                    Arda<span class="text-gold-500">Berber</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="hover:text-gold-500 transition-colors uppercase text-sm font-bold tracking-wide">Ana Sayfa</a>
+                    <a href="#about" class="hover:text-gold-500 transition-colors uppercase text-sm font-bold tracking-wide">Hakkımızda</a>
+                    <a href="#services" class="hover:text-gold-500 transition-colors uppercase text-sm font-bold tracking-wide">Hizmetler & Fiyatlar</a>
+                    <a href="#gallery" class="hover:text-gold-500 transition-colors uppercase text-sm font-bold tracking-wide">Galeri</a>
+                    <a href="#contact" class="px-5 py-2 bg-gold-500 text-dark-900 font-bold uppercase text-sm rounded hover:bg-gold-400 transition-colors">
+                        Randevu Al
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white text-2xl focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-t border-gray-700">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#home" class="block hover:text-gold-500 uppercase font-bold text-sm">Ana Sayfa</a>
+                <a href="#about" class="block hover:text-gold-500 uppercase font-bold text-sm">Hakkımızda</a>
+                <a href="#services" class="block hover:text-gold-500 uppercase font-bold text-sm">Hizmetler & Fiyatlar</a>
+                <a href="#gallery" class="block hover:text-gold-500 uppercase font-bold text-sm">Galeri</a>
+                <a href="#contact" class="block text-gold-500 uppercase font-bold text-sm">Randevu Al</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center bg-no-repeat bg-fixed">
+        <div class="absolute inset-0 bg-black/70"></div>
+        <div class="relative container mx-auto px-6 text-center z-10">
+            <p class="text-gold-500 font-display text-lg md:text-xl tracking-[0.2em] mb-4 uppercase animate-pulse">Tarzınızı Yansıtın</p>
+            <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                Modern Dokunuşlar <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600">Klasik Hizmet</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
+                Saç ve sakal tasarımında uzman kadromuzla, kendinizi özel hissedeceğiniz bir deneyime davetlisiniz.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#contact" class="px-8 py-4 bg-gold-500 text-dark-900 font-bold uppercase tracking-wider rounded hover:bg-gold-400 transition-all transform hover:scale-105 shadow-lg shadow-gold-500/20">
+                    Randevu Al
+                </a>
+                <a href="#services" class="px-8 py-4 border border-white text-white font-bold uppercase tracking-wider rounded hover:bg-white hover:text-dark-900 transition-all">
+                    Fiyatları Gör
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-dark-900">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute -inset-4 bg-gold-500/20 rounded-lg transform rotate-3"></div>
+                    <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Berber Dükkanı İç Mekan" class="relative rounded-lg shadow-2xl grayscale hover:grayscale-0 transition-all duration-500 w-full object-cover h-[500px]">
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-1 bg-gold-500"></div>
+                        <span class="text-gold-500 font-display uppercase tracking-wider">Hikayemiz</span>
+                    </div>
+                    <h2 class="text-4xl font-display font-bold text-white mb-6">Arda Berber Dükkanı'na Hoş Geldiniz</h2>
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        2015 yılından bu yana erkek bakımı ve stil danışmanlığı konusunda hizmet veriyoruz. Arda Berber olarak amacımız sadece saç kesmek değil, size en uygun stili belirleyerek karakterinizi dış görünüşünüze yansıtmaktır.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed mb-8">
+                        Geleneksel berber kültürünü modern tekniklerle birleştiriyoruz. Hijyen, kalite ve müşteri memnuniyeti bizim kırmızı çizgimizdir.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center p-4 bg-dark-800 rounded border border-gray-700">
+                            <i class="fa-solid fa-trophy text-3xl text-gold-500 mb-2"></i>
+                            <h4 class="font-bold text-white">Ödüllü Stilistler</h4>
+                        </div>
+                        <div class="text-center p-4 bg-dark-800 rounded border border-gray-700">
+                            <i class="fa-solid fa-mug-hot text-3xl text-gold-500 mb-2"></i>
+                            <h4 class="font-bold text-white">İkramlar</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services & Pricing Section -->
+    <section id="services" class="py-20 bg-dark-800 relative">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#fbbf24 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-gold-500 font-display uppercase tracking-wider text-sm font-bold">Hizmetlerimiz</span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-white mt-2">Fiyat Listesi</h2>
+                <div class="w-24 h-1 bg-gold-500 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Item 1 -->
+                <div class="service-card bg-dark-900 p-8 rounded-lg border border-gray-700 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fa-solid fa-scissors text-3xl text-gray-500 group-hover:text-gold-500 transition-colors"></i>
+                        <span class="text-2xl font-bold text-gold-500">250 TL</span>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-2">Saç Kesimi & Tasarım</h3>
+                    <p class="text-gray-400 text-sm">Yüz şeklinize uygun, modern makas ve makine teknikleri ile saç kesimi. Yıkama dahildir.</p>
+                </div>
+
+                <!-- Service Item 2 -->
+                <div class="service-card bg-dark-900 p-8 rounded-lg border border-gray-700 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fa-solid fa-user-tie text-3xl text-gray-500 group-hover:text-gold-500 transition-colors"></i>
+                        <span class="text-2xl font-bold text-gold-500">150 TL</span>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-2">Sakal Tasarımı</h3>
+                    <p class="text-gray-400 text-sm">Sakal şekillendirme, ustura ile düzeltme ve sıcak havlu kompresi.</p>
+                </div>
+
+                <!-- Service Item 3 -->
+                <div class="service-card bg-dark-900 p-8 rounded-lg border border-gray-700 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fa-solid fa-star text-3xl text-gray-500 group-hover:text-gold-500 transition-colors"></i>
+                        <span class="text-2xl font-bold text-gold-500">350 TL</span>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-2">Saç & Sakal Kombo</h3>
+                    <p class="text-gray-400 text-sm">Tam bakım paketi. Saç ve sakal kesimi, yıkama, fön ve stil danışmanlığı.</p>
+                </div>
+
+                <!-- Service Item 4 -->
+                <div class="service-card bg-dark-900 p-8 rounded-lg border border-gray-700 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fa-solid fa-pump-soap text-3xl text-gray-500 group-hover:text-gold-500 transition-colors"></i>
+                        <span class="text-2xl font-bold text-gold-500">400 TL</span>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-2">Cilt Bakımı</h3>
+                    <p class="text-gray-400 text-sm">Siyah nokta temizliği, buhar banyosu, kil maskesi ve nemlendirici masaj.</p>
+                </div>
+
+                <!-- Service Item 5 -->
+                <div class="service-card bg-dark-900 p-8 rounded-lg border border-gray-700 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fa-solid fa-child text-3xl text-gray-500 group-hover:text-gold-500 transition-colors"></i>
+                        <span class="text-2xl font-bold text-gold-500">200 TL</span>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-2">Çocuk Tıraşı</h3>
+                    <p class="text-gray-400 text-sm">Küçük beyler için özenli ve eğlenceli saç kesimi (12 yaş altı).</p>
+                </div>
+
+                <!-- Service Item 6 -->
+                <div class="service-card bg-dark-900 p-8 rounded-lg border border-gray-700 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <i class="fa-solid fa-crown text-3xl text-gray-500 group-hover:text-gold-500 transition-colors"></i>
+                        <span class="text-2xl font-bold text-gold-500">2000 TL</span>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-2">Damat Paketi</h3>
+                    <p class="text-gray-400 text-sm">Özel gününüz için VIP bakım. Saç, sakal, cilt bakımı, maske ve detaylı styling.</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                 <p class="text-gray-400 italic text-sm">* Fiyatlarımız saç yoğunluğu ve yapılacak işlemin detayına göre değişiklik gösterebilir.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-dark-900">
+        <div class="container mx-auto px-6">
+             <div class="text-center mb-16">
+                <span class="text-gold-500 font-display uppercase tracking-wider text-sm font-bold">Portfolyo</span>
+                <h2 class="text-4xl font-display font-bold text-white mt-2">Yaptığımız İşler</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="overflow-hidden rounded-lg h-64 cursor-pointer group">
+                    <img src="https://images.unsplash.com/photo-1599351431202-6e0000a74136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Saç Kesimi 1" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-500 transition-transform">
+                </div>
+                <div class="overflow-hidden rounded-lg h-64 cursor-pointer group">
+                    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Saç Kesimi 2" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-500 transition-transform">
+                </div>
+                <div class="overflow-hidden rounded-lg h-64 cursor-pointer group">
+                    <img src="https://images.unsplash.com/photo-1503951914875-befbb711d383?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Saç Kesimi 3" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-500 transition-transform">
+                </div>
+                <div class="overflow-hidden rounded-lg h-64 cursor-pointer group">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Saç Kesimi 4" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-500 transition-transform">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials (Reviews) -->
+    <section class="py-16 bg-gold-600 text-dark-900">
+        <div class="container mx-auto px-6 text-center">
+            <i class="fa-solid fa-quote-left text-4xl mb-6 opacity-50"></i>
+            <h3 class="text-2xl md:text-3xl font-display font-bold mb-8">"Arda Bey işinde tam bir profesyonel. Yıllardır geliyorum, her seferinde memnun ayrılıyorum. Atmosfer harika."</h3>
+            <div class="flex items-center justify-center gap-2">
+                <i class="fa-solid fa-star text-white"></i>
+                <i class="fa-solid fa-star text-white"></i>
+                <i class="fa-solid fa-star text-white"></i>
+                <i class="fa-solid fa-star text-white"></i>
+                <i class="fa-solid fa-star text-white"></i>
+            </div>
+            <p class="mt-4 font-bold uppercase tracking-wide">- Mehmet Yılmaz</p>
+        </div>
+    </section>
+
+    <!-- Contact & Appointment Section -->
+    <section id="contact" class="py-20 bg-dark-800">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Info -->
+                <div>
+                    <span class="text-gold-500 font-display uppercase tracking-wider text-sm font-bold">İletişim</span>
+                    <h2 class="text-4xl font-display font-bold text-white mt-2 mb-6">Bize Ulaşın</h2>
+                    <p class="text-gray-400 mb-8">Randevunuzu hemen oluşturun veya sorularınız için bizi arayın. Kahvemiz her zaman hazır.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-dark-700 flex items-center justify-center text-gold-500 shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Adres</h4>
+                                <p class="text-gray-400 text-sm">Bağdat Caddesi, No: 123, Kadıköy / İstanbul</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-dark-700 flex items-center justify-center text-gold-500 shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Telefon</h4>
+                                <p class="text-gray-400 text-sm">+90 555 123 45 67</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-dark-700 flex items-center justify-center text-gold-500 shrink-0">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Çalışma Saatleri</h4>
+                                <p class="text-gray-400 text-sm">Pazartesi - Cumartesi: 09:00 - 21:00</p>
+                                <p class="text-gray-400 text-sm">Pazar: Kapalı</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-dark-900 p-8 rounded-lg border border-gray-700 shadow-2xl">
+                    <h3 class="text-2xl font-display font-bold text-white mb-6">Randevu Oluştur</h3>
+                    <form id="appointmentForm" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-gray-400 text-xs uppercase font-bold mb-2">Adınız</label>
+                                <input type="text" required class="w-full bg-dark-800 border border-gray-700 text-white p-3 rounded focus:outline-none focus:border-gold-500 transition-colors" placeholder="Adınız Soyadınız">
+                            </div>
+                            <div>
+                                <label class="block text-gray-400 text-xs uppercase font-bold mb-2">Telefon</label>
+                                <input type="tel" required class="w-full bg-dark-800 border border-gray-700 text-white p-3 rounded focus:outline-none focus:border-gold-500 transition-colors" placeholder="05XX XXX XX XX">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-400 text-xs uppercase font-bold mb-2">Hizmet Seçiniz</label>
+                            <select class="w-full bg-dark-800 border border-gray-700 text-white p-3 rounded focus:outline-none focus:border-gold-500 transition-colors">
+                                <option>Saç Kesimi</option>
+                                <option>Sakal Kesimi</option>
+                                <option>Saç & Sakal Kombo</option>
+                                <option>Cilt Bakımı</option>
+                                <option>Çocuk Tıraşı</option>
+                                <option>Damat Paketi</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                <label class="block text-gray-400 text-xs uppercase font-bold mb-2">Tarih</label>
+                                <input type="date" required class="w-full bg-dark-800 border border-gray-700 text-white p-3 rounded focus:outline-none focus:border-gold-500 transition-colors">
+                            </div>
+                             <div>
+                                <label class="block text-gray-400 text-xs uppercase font-bold mb-2">Saat</label>
+                                <input type="time" required class="w-full bg-dark-800 border border-gray-700 text-white p-3 rounded focus:outline-none focus:border-gold-500 transition-colors">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gold-500 text-dark-900 font-bold uppercase p-4 rounded mt-4 hover:bg-gold-400 transition-colors">
+                            Randevuyu Onayla
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-gray-800 py-10">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <a href="#" class="text-xl font-display font-bold text-white tracking-wider uppercase mb-4 md:mb-0">
+                Arda<span class="text-gold-500">Berber</span>
+            </a>
+            
+            <div class="flex space-x-6 mb-4 md:mb-0">
+                <a href="#" class="text-gray-400 hover:text-gold-500 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-gold-500 transition-colors"><i class="fa-brands fa-facebook text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-gold-500 transition-colors"><i class="fa-brands fa-twitter text-xl"></i></a>
+            </div>
+            
+            <p class="text-gray-600 text-sm">© 2023 Arda Berber Dükkanı. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal (Hidden by default) -->
+    <div id="successModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-black/80 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-dark-800 p-8 rounded-lg border border-gold-500 max-w-sm text-center transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-check text-3xl text-dark-900"></i>
+            </div>
+            <h3 class="text-2xl font-display font-bold text-white mb-2">Randevu Alındı!</h3>
+            <p class="text-gray-400 mb-6">Talebiniz bize ulaştı. En kısa sürede sizi arayıp randevunuzu teyit edeceğiz.</p>
+            <button onclick="closeModal()" class="px-6 py-2 bg-transparent border border-gold-500 text-gold-500 font-bold uppercase rounded hover:bg-gold-500 hover:text-dark-900 transition-colors">
+                Tamam
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Form Handling
+        const form = document.getElementById('appointmentForm');
+        const modal = document.getElementById('successModal');
+        const modalContent = document.getElementById('modalContent');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Show Modal
+            modal.classList.remove('hidden');
+            // Small delay to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+            form.reset();
+        });
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
+
