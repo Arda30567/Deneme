@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arda Berber | Yönetim Paneli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+                        dark: { 900: '#111827', 800: '#1f2937', 700: '#374151' }
+                    },
+                    fontFamily: {
+                        display: ['Oswald', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-gray-100 font-body antialiased">
+
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen" class="h-screen flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?ixlib=rb-4.0.3')] bg-cover bg-center">
+        <div class="absolute inset-0 bg-black/80"></div>
+        <div class="relative bg-dark-800 p-8 rounded border border-gray-700 w-full max-w-sm shadow-2xl z-10">
+            <div class="text-center mb-6">
+                <i class="fa-solid fa-lock text-gold-500 text-3xl mb-2"></i>
+                <h2 class="text-2xl font-bold text-white">Admin Girişi</h2>
+            </div>
+            <form id="loginForm" class="space-y-4">
+                <input type="text" id="user" placeholder="Kullanıcı Adı" class="w-full bg-dark-900 border border-gray-700 p-3 rounded text-white focus:border-gold-500 outline-none">
+                <input type="password" id="pass" placeholder="Şifre" class="w-full bg-dark-900 border border-gray-700 p-3 rounded text-white focus:border-gold-500 outline-none">
+                <p id="errorMsg" class="text-red-500 text-sm hidden">Hatalı bilgi!</p>
+                <button type="submit" class="w-full bg-gold-500 text-dark-900 font-bold p-3 rounded hover:bg-gold-400">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-dark-800 border-r border-gray-700 flex-shrink-0">
+            <div class="p-6 border-b border-gray-700">
+                <h1 class="text-xl font-display font-bold text-white">Arda<span class="text-gold-500">Panel</span></h1>
+            </div>
+            <nav class="p-4 space-y-2">
+                <button class="w-full text-left bg-dark-700 text-gold-500 px-4 py-3 rounded font-bold"><i class="fa-solid fa-calendar-check mr-2"></i> Randevular</button>
+                <button onclick="logout()" class="w-full text-left text-red-400 hover:bg-dark-700 px-4 py-3 rounded mt-4"><i class="fa-solid fa-sign-out-alt mr-2"></i> Çıkış</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 overflow-y-auto">
+            <header class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-white">Randevu Yönetimi</h2>
+                <div class="text-sm text-gray-400" id="dateDisplay"></div>
+            </header>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-dark-800 p-6 rounded border border-gray-700">
+                    <p class="text-gray-400 text-xs uppercase font-bold">Toplam Randevu</p>
+                    <p class="text-3xl font-bold text-white mt-2" id="totalCount">0</p>
+                </div>
+                <div class="bg-dark-800 p-6 rounded border border-gray-700">
+                    <p class="text-gold-500 text-xs uppercase font-bold">Bekleyenler</p>
+                    <p class="text-3xl font-bold text-white mt-2" id="pendingCount">0</p>
+                </div>
+                <div class="bg-dark-800 p-6 rounded border border-gray-700">
+                    <p class="text-green-500 text-xs uppercase font-bold">Tahmini Kazanç</p>
+                    <p class="text-3xl font-bold text-white mt-2" id="earnings">0 TL</p>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-dark-800 rounded border border-gray-700 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-300">
+                        <thead class="bg-dark-700 text-white uppercase text-xs">
+                            <tr>
+                                <th class="px-6 py-4">Müşteri</th>
+                                <th class="px-6 py-4">Hizmet</th>
+                                <th class="px-6 py-4">Tarih</th>
+                                <th class="px-6 py-4">Durum</th>
+                                <th class="px-6 py-4 text-right">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="divide-y divide-gray-700">
+                            <!-- JS Dolduracak -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="emptyState" class="p-8 text-center hidden">
+                    <p class="text-gray-500">Hiç randevu yok.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'arda_berber_randevular';
+
+        // --- AUTH ---
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            if(u === 'admin' && p === '1234') {
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                loadData();
+            } else {
+                document.getElementById('errorMsg').classList.remove('hidden');
+            }
+        });
+
+        function logout() {
+            location.reload();
+        }
+
+        // --- DATA ---
+        function loadData() {
+            const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const tbody = document.getElementById('tableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            tbody.innerHTML = '';
+            
+            // Stats Update
+            document.getElementById('totalCount').innerText = data.length;
+            document.getElementById('pendingCount').innerText = data.filter(x => x.status === 'Bekliyor').length;
+            
+            // Basit Kazanç Hesabı
+            let total = 0;
+            data.forEach(x => {
+                if(x.status === 'Onaylandı') {
+                    if(x.service.includes('250')) total += 250;
+                    if(x.service.includes('150')) total += 150;
+                    if(x.service.includes('350')) total += 350;
+                }
+            });
+            document.getElementById('earnings').innerText = total + ' TL';
+
+            if(data.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            // Tabloyu Doldur (Sondan başa)
+            data.reverse().forEach(item => {
+                let statusColor = 'text-yellow-500';
+                if(item.status === 'Onaylandı') statusColor = 'text-green-500';
+                
+                const dateFormatted = new Date(item.date).toLocaleString('tr-TR');
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-dark-700/50';
+                tr.innerHTML = `
+                    <td class="px-6 py-4">
+                        <div class="font-bold text-white">${item.name}</div>
+                        <div class="text-xs">${item.phone}</div>
+                    </td>
+                    <td class="px-6 py-4">${item.service}</td>
+                    <td class="px-6 py-4">${dateFormatted}</td>
+                    <td class="px-6 py-4 ${statusColor} font-bold">${item.status}</td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        ${item.status === 'Bekliyor' ? `
+                        <button onclick="updateStatus(${item.id}, 'Onaylandı')" class="text-green-500 hover:text-white bg-dark-700 hover:bg-green-600 p-2 rounded transition"><i class="fa-solid fa-check"></i></button>
+                        ` : ''}
+                        <button onclick="deleteItem(${item.id})" class="text-red-500 hover:text-white bg-dark-700 hover:bg-red-600 p-2 rounded transition"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        window.updateStatus = function(id, status) {
+            const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const index = data.findIndex(x => x.id === id);
+            if(index > -1) {
+                data[index].status = status;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                loadData();
+            }
+        }
+
+        window.deleteItem = function(id) {
+            if(confirm('Silmek istediğine emin misin?')) {
+                let data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                data = data.filter(x => x.id !== id);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                loadData();
+            }
+        }
+
+        // Tarih göstergesi
+        document.getElementById('dateDisplay').innerText = new Date().toLocaleDateString('tr-TR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    </script>
+</body>
+</html>
+
