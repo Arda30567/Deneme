@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arda Davet Evi | Butik Organizasyon & Düğün Salonu</title>
+    <!-- Tailwind CSS (Hızlı stil ve responsive tasarım için) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- İkonlar için FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gold-light': '#f3e5ab',
+                        'gold-dark': '#c5a059',
+                        'deep-green': '#1a3c34',
+                        'soft-cream': '#f9f7f2',
+                    },
+                    fontFamily: {
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'sans': ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Özel Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c5a059;
+            border-radius: 4px;
+        }
+
+        /* Hero Animasyonu */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Galeri Hover Efekti */
+        .gallery-item {
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .gallery-item img {
+            transition: all 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* WhatsApp Butonu Animasyonu */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px #666;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        .whatsapp-float:hover {
+            background-color: #1ebd57;
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-700 bg-soft-cream antialiased">
+
+    <!-- Navigasyon -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-serif font-bold text-gray-800 tracking-wider">
+                ARDA <span class="text-gold-dark">DAVET</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#anasayfa" class="hover:text-gold-dark transition">Anasayfa</a>
+                <a href="#hakkimizda" class="hover:text-gold-dark transition">Hakkımızda</a>
+                <a href="#hizmetler" class="hover:text-gold-dark transition">Hizmetler</a>
+                <a href="#galeri" class="hover:text-gold-dark transition">Galeri</a>
+                <a href="#iletisim" class="hover:text-gold-dark transition">İletişim</a>
+                <button onclick="whatsappYonlendir()" class="bg-gold-dark text-white px-5 py-2 rounded-full hover:bg-yellow-600 transition shadow-lg">
+                    <i class="fab fa-whatsapp mr-2"></i>Randevu Al
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-gray-800 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4">
+            <a href="#anasayfa" class="block py-2 text-center hover:text-gold-dark">Anasayfa</a>
+            <a href="#hakkimizda" class="block py-2 text-center hover:text-gold-dark">Hakkımızda</a>
+            <a href="#hizmetler" class="block py-2 text-center hover:text-gold-dark">Hizmetler</a>
+            <a href="#galeri" class="block py-2 text-center hover:text-gold-dark">Galeri</a>
+            <a href="#iletisim" class="block py-2 text-center hover:text-gold-dark">İletişim</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="anasayfa" class="hero-bg h-screen flex items-center justify-center text-center px-4 relative">
+        <div class="relative z-10 text-white max-w-3xl">
+            <h2 class="text-lg md:text-xl tracking-[0.3em] uppercase mb-4 animate-fade-in-up">Butik & Özel</h2>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">Hayallerinizdeki <br>Davet Evi</h1>
+            <p class="text-lg md:text-xl mb-10 font-light text-gray-200">En özel anlarınızı, 100 kişiye kadar kapasiteli şık ve samimi salonumuzda ölümsüzleştirin.</p>
+            <button onclick="whatsappYonlendir()" class="bg-white text-gray-900 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gold-dark hover:text-white transition duration-300 shadow-xl">
+                Planlamaya Başla
+            </button>
+        </div>
+        <!-- Aşağı Kaydır İkonu -->
+        <div class="absolute bottom-10 animate-bounce">
+            <a href="#hakkimizda" class="text-white text-3xl"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <!-- Hakkımızda -->
+    <section id="hakkimizda" class="py-20 container mx-auto px-6 fade-in-section">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Davet Masası" class="rounded-lg shadow-2xl w-full">
+                    <div class="absolute -bottom-6 -right-6 bg-gold-dark text-white p-6 rounded-lg shadow-xl hidden md:block">
+                        <p class="text-4xl font-serif font-bold">100</p>
+                        <p class="text-sm uppercase tracking-wide">Kişilik Kapasite</p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 text-center md:text-left">
+                <h3 class="text-gold-dark font-bold uppercase tracking-widest mb-2">Hakkımızda</h3>
+                <h2 class="text-4xl font-serif font-bold text-gray-800 mb-6">Samimi ve Şık Kutlamalar</h2>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Arda Davet Evi olarak, kalabalık düğün salonlarının gürültüsünden uzak, sadece en sevdiklerinizle bir arada olabileceğiniz butik bir ortam sunuyoruz. Söz, nişan, kına, doğum günü veya kurumsal toplantılarınız için özenle tasarlanmış mekanımızda her detay sizin için düşünüldü.
+                </p>
+                <ul class="space-y-3 mb-8 text-gray-700">
+                    <li><i class="fas fa-check text-gold-dark mr-2"></i> Şehir merkezinde kolay ulaşım</li>
+                    <li><i class="fas fa-check text-gold-dark mr-2"></i> Size özel dekorasyon seçenekleri</li>
+                    <li><i class="fas fa-check text-gold-dark mr-2"></i> Profesyonel ses ve ışık sistemleri</li>
+                </ul>
+                <button onclick="whatsappYonlendir()" class="border-2 border-gray-800 text-gray-800 px-6 py-2 rounded hover:bg-gray-800 hover:text-white transition duration-300">
+                    Bilgi Al
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hizmetler -->
+    <section id="hizmetler" class="py-20 bg-white fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-gray-800">Organizasyon Hizmetlerimiz</h2>
+                <div class="w-24 h-1 bg-gold-dark mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-soft-cream p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 text-center group">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-gold-dark text-2xl group-hover:bg-gold-dark group-hover:text-white transition">
+                        <i class="fas fa-rings-wedding"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 font-serif">Söz & Nişan</h3>
+                    <p class="text-gray-600">Evliliğe giden ilk adımda, aile arasında sıcak ve unutulmaz bir tören için ideal atmosfer.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-soft-cream p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 text-center group">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-gold-dark text-2xl group-hover:bg-gold-dark group-hover:text-white transition">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 font-serif">Kına Gecesi</h3>
+                    <p class="text-gray-600">Geleneksel veya modern konseptlerde, arkadaşlarınızla doyasıya eğleneceğiniz kına organizasyonları.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-soft-cream p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 text-center group">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-gold-dark text-2xl group-hover:bg-gold-dark group-hover:text-white transition">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 font-serif">Doğum Günü & Baby Shower</h3>
+                    <p class="text-gray-600">Sevdiklerinizle yeni yaşınızı veya bebeğinizin gelişini kutlamak için keyifli bir ortam.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri -->
+    <section id="galeri" class="py-20 fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-serif font-bold text-gray-800">Fotoğraf Galerisi</h2>
+                <p class="text-gray-600 mt-4">Mutluluğa şahitlik ettiğimiz anlar</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="gallery-item md:col-span-2 md:row-span-2 relative h-96 group rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1519225448526-0ca85c53563e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Salon Geniş Açı" class="w-full h-full object-cover rounded-lg">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center rounded-lg">
+                        <span class="text-white font-serif text-2xl">Masa Düzeni</span>
+                    </div>
+                </div>
+                <div class="gallery-item relative h-48 group rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Detay" class="w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="gallery-item relative h-48 group rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pasta" class="w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="gallery-item md:col-span-2 relative h-48 group rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dekorasyon" class="w-full h-full object-cover rounded-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Özellikler (Icons) -->
+    <section class="bg-deep-green text-white py-16">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <i class="fas fa-wifi text-3xl mb-3 text-gold-dark"></i>
+                <p>Ücretsiz Wi-Fi</p>
+            </div>
+            <div>
+                <i class="fas fa-music text-3xl mb-3 text-gold-dark"></i>
+                <p>Ses Sistemi</p>
+            </div>
+            <div>
+                <i class="fas fa-snowflake text-3xl mb-3 text-gold-dark"></i>
+                <p>Klima</p>
+            </div>
+            <div>
+                <i class="fas fa-camera text-3xl mb-3 text-gold-dark"></i>
+                <p>Fotoğraf Köşesi</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim Footer -->
+    <footer id="iletisim" class="bg-gray-900 text-white pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <!-- Adres -->
+                <div>
+                    <h3 class="text-2xl font-serif font-bold text-gold-dark mb-6">Arda Davet Evi</h3>
+                    <p class="text-gray-400 mb-4">Butik organizasyonlarınız için en doğru adres.</p>
+                    <div class="flex items-start space-x-3 mb-4 text-gray-300">
+                        <i class="fas fa-map-marker-alt mt-1"></i>
+                        <span>Örnek Mahallesi, Çiçek Caddesi No:12<br>İstanbul, Türkiye</span>
+                    </div>
+                    <div class="flex items-center space-x-3 text-gray-300">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@ardadavetevi.com</span>
+                    </div>
+                </div>
+
+                <!-- Hızlı Menü -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6">Hızlı Erişim</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#anasayfa" class="hover:text-gold-dark transition">Anasayfa</a></li>
+                        <li><a href="#hizmetler" class="hover:text-gold-dark transition">Hizmetlerimiz</a></li>
+                        <li><a href="#galeri" class="hover:text-gold-dark transition">Galeri</a></li>
+                        <li><a href="#" onclick="whatsappYonlendir()" class="hover:text-gold-dark transition">Randevu Al</a></li>
+                    </ul>
+                </div>
+
+                <!-- Çalışma Saatleri & WhatsApp -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6">İletişime Geçin</h4>
+                    <p class="text-gray-400 mb-4">Müsaitlik durumu ve fiyat teklifi için bize WhatsApp üzerinden yazabilirsiniz.</p>
+                    <button onclick="whatsappYonlendir()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded transition duration-300 flex items-center justify-center">
+                        <i class="fab fa-whatsapp text-2xl mr-2"></i> WhatsApp'tan Yazın
+                    </button>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2023 Arda Davet Evi. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="#" onclick="whatsappYonlendir()" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript Kodu -->
+    <script>
+        // --- AYARLAR ---
+        // Buraya kendi telefon numaranızı yazın (Başında 90 olacak şekilde, boşluksuz)
+        const TELEFON_NUMARASI = "905550000000"; 
+        
+        // --- WhatsApp Yönlendirme Fonksiyonu ---
+        function whatsappYonlendir() {
+            // Müşterinin göndereceği hazır mesaj
+            const mesaj = "Merhaba, Arda Davet Evi için tarih ve fiyat bilgisi almak istiyorum.";
+            
+            // Link oluşturma
+            const url = `https://wa.me/${TELEFON_NUMARASI}?text=${encodeURIComponent(mesaj)}`;
+            
+            // Yeni sekmede aç
+            window.open(url, '_blank');
+        }
+
+        // --- Mobil Menü Kontrolü ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Menüdeki linke tıklayınca menüyü kapat
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // --- Scroll Animasyonları (Görünür olunca yukarı kayma) ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Sadece bir kere çalışsın
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- Navbar Arkaplan Değişimi ---
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+    </script>
+</body>
+</html>
+
